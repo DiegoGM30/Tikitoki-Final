@@ -1,0 +1,22 @@
+import Service from './service.js';
+import authHeader from './auth-header.js';
+const resource = 'videos';
+
+export default {
+  getAll() {
+    return Service.get(resource);
+  },
+
+  create(data) {
+    return Service.post(resource, data, { headers: authHeader() });
+  },
+
+  upload(videoId, filename, video) {
+    const formData = new FormData();
+    formData.append("videoFile", filename);
+    formData.append("title", video.title);
+    formData.append("author", video.author);
+    formData.append("description", video.description);
+    return Service.post(`${resource}/${videoId}/upload`, formData, { headers: authHeader() });
+  }
+}

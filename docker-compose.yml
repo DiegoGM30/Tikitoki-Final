@@ -1,0 +1,68 @@
+version: '2'
+services:
+  web-server:
+    image: nginx
+    container_name: videos-web-server
+    restart: always
+    expose:
+      - "80/tcp"
+    ports:
+      - "8080:80"
+    volumes:
+      - ./volumes/public:/usr/share/nginx/html:ro
+    environment:
+      - NGINX_PORT=80
+
+  db:
+    image: mysql:8.0.21
+    container_name: videos-db-service
+    restart: always
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+      - MYSQL_DATABASE=tikitoki
+      - MYSQL_USER=user
+      - MYSQL_PASSWORD=user-password
+      - MYSQL_ROOT_PASSWORD=root-password
+    expose:
+      - "3306"
+      - "33060"
+    volumes:
+      - ./volumes/data:/var/lib/mysql
+    networks:
+      - videos_backend
+
+  backend:
+    build: ./backend/
+    image: videos-backend-service
+    container_name: videos-backend-service
+    depends_on:
+      - db
+    environment:
+      - PORT=3000
+      - DATABASE_NAME=tikitoki
+      - DATABASE_USER=user
+      - DATABASE_PASSWORD=user-password
+      - DATABASE_HOST=db
+      - DATABASE_PORT=3306
+      - WAIT_HOSTS=db:3306
+    ports:
+      - "3000:3000"
+    networks:
+      - videos_backend
+    volumes:
+      - ./volumes/uploads:/uploads
+      - ./volumes/public/thumbnails:/thumbnails
+      - ./volumes/public/reels:/reels
+
+  frontend:
+    build: ./frontend/
+    image: videos-frontend-service
+    container_name: videos-frontend-service
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+
+networks:
+  videos_backend:
+    driver: bridge

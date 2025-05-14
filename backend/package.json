@@ -1,0 +1,43 @@
+{
+  "name": "3smi-project",
+  "version": "1.0.0",
+  "description": "Project Multimedia Service\r Prueba 2",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "set NODE_ENV=test&&mocha -r dotenv/config test/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/UO288592/3SMI-Project.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/UO288592/3SMI-Project/issues"
+  },
+  "homepage": "https://github.com/UO288592/3SMI-Project#readme",
+  "dependencies": {
+    "bcrypt": "^6.0.0",
+    "body-parser": "^2.2.0",
+    "cors": "^2.8.5",
+    "express": "^5.1.0",
+    "express-fileupload": "^1.5.1",
+    "express-jwt": "^8.5.1",
+    "express-validator": "^6.15.0",
+    "express-winston": "^4.2.0",
+    "jsonwebtoken": "^9.0.2",
+    "mysql2": "^2.3.3",
+    "sequelize": "^6.37.7",
+    "winston": "^3.17.0"
+  },
+  "devDependencies": {
+    "chai": "^4.5.0",
+    "chai-arrays": "^2.2.0",
+    "chai-http": "^4.4.0",
+    "dotenv": "^16.5.0",
+    "mocha": "^11.1.0",
+    "sinon": "^20.0.0"
+  }
+}
