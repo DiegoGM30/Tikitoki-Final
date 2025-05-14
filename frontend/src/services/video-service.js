@@ -13,7 +13,7 @@ export default {
 
   upload(videoId, filename, video) {
     const formData = new FormData();
-    formData.append("videoFile", filename);
+    formData.append("reelFile", filename);
     formData.append("creator", video.creator);
     formData.append("author", video.author);
     formData.append("description", video.description);

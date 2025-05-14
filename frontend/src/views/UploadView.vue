@@ -17,7 +17,7 @@
           <input v-model="video.description" type="text" name="description" />
         </div>
         <div>
-          <label for="videoFile"> Video File</label>
+          <label for="reelFile"> Video File</label>
           <input type="file" @change="onFileChange" />
         </div>
         <div>
