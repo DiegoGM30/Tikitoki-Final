@@ -10,7 +10,7 @@
       <p>
         <strong>{{ video.title }}</strong>
         <br>
-        <em v-if="video.author">{{ video.author }}</em>
+        <em v-if="video.creator">{{ video.creator }}</em>
         <br>
         {{ video.description }}
       </p>

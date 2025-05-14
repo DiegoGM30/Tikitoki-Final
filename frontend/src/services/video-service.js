@@ -14,7 +14,7 @@ export default {
   upload(videoId, filename, video) {
     const formData = new FormData();
     formData.append("videoFile", filename);
-    formData.append("title", video.title);
+    formData.append("creator", video.creator);
     formData.append("author", video.author);
     formData.append("description", video.description);
     return Service.post(`${resource}/${videoId}/upload`, formData, { headers: authHeader() });

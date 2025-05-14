@@ -1,7 +1,7 @@
 export default class Video {
-    constructor(title, author, description) {
+    constructor(title, creator, description) {
       this.title = title;
-      this.author = author;
+      this.creator = creator;
       this.description = description;
     }
   }

@@ -9,8 +9,8 @@
           <input v-model="video.title" type="text" name="title" />
         </div>
         <div>
-          <label for="author">Author</label>
-          <input v-model="video.author" type="text" name="author" />
+          <label for="creator">Creator</label>
+          <input v-model="video.creator" type="text" name="creator" />
         </div>
         <div>
           <label for="description">Description</label>
@@ -58,7 +58,7 @@ export default {
       this.loading = true;
 
       // All fields are mandatory
-      if (this.video.title && this.video.author && this.video.description && this.selectedFile) {
+      if (this.video.title && this.video.creator && this.video.description && this.selectedFile) {
         try {
           // Create the video
           const response = await videoService.create(this.video);
