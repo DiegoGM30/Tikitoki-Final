@@ -54,7 +54,11 @@ initializePlayer() {
   this.$refs.playerContainer.appendChild(videoElement);
 
   this.player = dashjs.MediaPlayer().create();
-  const videoUrl = `${this.baseURL}/${this.video.video}`; 
+  if (!this.video || !this.video.video) {
+  console.warn('El video no tiene una ruta válida');
+  return;
+  }
+  const videoUrl = `${this.baseURL}/${this.video.video}`;
   console.log("Video URL usada:", videoUrl); 
   this.player.initialize(videoElement, videoUrl, false);
 }
