@@ -54,7 +54,7 @@ initializePlayer() {
   this.$refs.playerContainer.appendChild(videoElement);
 
   this.player = dashjs.MediaPlayer().create();
-  const videoUrl = `${this.baseURL}/${this.video.video}`;
+  const videoUrl = [this.baseURL, this.video.video].join('/');
   this.player.initialize(videoElement, videoUrl, false);
 }
 
