@@ -46,23 +46,18 @@ export default {
         this.setupObserver();
       });
     },
-initializePlayer() {
-  const videoElement = document.createElement('video');
-  videoElement.controls = true;
-  videoElement.muted = true;
-  videoElement.loop = true;
-  this.$refs.playerContainer.appendChild(videoElement);
+    initializePlayer() {
+      const videoElement = document.createElement('video');
+      videoElement.controls = true;
+      videoElement.muted = true;
+      videoElement.loop = true;
+      this.$refs.playerContainer.appendChild(videoElement);
 
-  this.player = dashjs.MediaPlayer().create();
-  if (!this.video || !this.video.video) {
-  console.warn('El video no tiene una ruta válida');
-  return;
-  }
-  const videoUrl = `${this.baseURL}/${this.video.video}`;
-  console.log("Video URL usada:", videoUrl); 
-  this.player.initialize(videoElement, videoUrl, false);
-}
-
+      this.player = dashjs.MediaPlayer().create();
+      const urlSegments = this.video.video.split('/').slice(-4);
+      const videoUrl = `${baseURL}/${urlSegments.join('/')}`;
+      this.player.initialize(videoElement, videoUrl, false);
+    },
 
     setupObserver() {
       const options = {
