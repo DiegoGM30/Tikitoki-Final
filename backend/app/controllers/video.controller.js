@@ -51,38 +51,32 @@ module.exports.getLatest = async (req, res, next) => {
 // Upload the video
 module.exports.upload = async (req, res, next) => {
     try {
-        const video = await Video.findByPk( req.params.id );
+        const video = await Video.findByPk(req.params.id);
         if (!video) {
             res.status(404).end();
             return;
         }
 
-        // Move video to temporary location and encode it to final location
+        // Mueve el archivo de video a una ubicación temporal
         const reelFile = req.files.reelFile;
         const extension = path.extname(reelFile.name);
-        const reelFileName = reelConfig.NAME_PREFIX + video.id;;
+        const reelFileName = reelConfig.NAME_PREFIX + video.id;
         const uploadedFileName = reelConfig.UPLOADS + reelFileName + extension;
         reelFile.mv(uploadedFileName);
 
-        const outputFile = reelConfig.PUBLIC + reelFileName + '.mp4';
-        const destination = await encoding.normalize(uploadedFileName, outputFile);
+        // Define la carpeta de salida para MPEG-DASH
+        const outputFolder = reelConfig.PUBLIC + reelFileName;
+        if (!fs.existsSync(outputFolder)) {
+            fs.mkdirSync(outputFolder, { recursive: true });
+        }
 
-        // Update video
-        await video.update({ reel: destination });
-        res.status(200).json(video);
-        /*
-        // Move reel file
-        const reelFile = req.files.reelFile;
-        const extension = path.extname(reelFile.name);
-        const location = reelConfig.PUBLIC + reelConfig.NAME_PREFIX + video.id + extension;
-        reelFile.mv(location);
+        // Convierte el video a MPEG-DASH
+        const manifestPath = await encoding.normalize(uploadedFileName, outputFolder);
 
-        // Update video
-        await video.update({ reel: location });
+        // Actualiza el video con la ruta del manifiesto
+        await video.update({ reel: manifestPath });
         res.status(200).json(video);
-        */
-    }
-    catch (error) {
+    } catch (error) {
         return next(error);
     }
 };

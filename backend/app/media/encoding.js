@@ -1,16 +1,20 @@
 const child_process = require('child_process');
 
-
-exports.normalize = (imageFileName, outputFileName) => {
+exports.normalize = (inputFileName, outputFolder) => {
   return new Promise((resolve, reject) => {
-    const command = `ffmpeg -y -i ${imageFileName} ${outputFileName}`;
+    const outputManifest = `${outputFolder}/manifest.mpd`;
+    const command = `
+      ffmpeg -y -i ${inputFileName} \
+      -map 0 -b:v:0 1000k -b:v:1 500k -s:v:1 640x360 \
+      -c:v libx264 -c:a aac -f dash ${outputManifest}
+    `;
 
-    // Transcode
+    // Transcode to MPEG-DASH
     child_process.exec(command, (err, stdout, stderr) => {
       if (err) {
         return reject(new Error(`Transcoding error. ${stderr}`));
       }
-      resolve(outputFileName);
+      resolve(outputManifest);
     });
   });
-}
+};
