@@ -11,12 +11,14 @@ export default {
     return Service.post(resource, data, { headers: authHeader() });
   },
 
-  upload(videoId, filename, video) {
-    const formData = new FormData();
-    formData.append("reelFile", filename);
-    formData.append("title", video.title);
-    formData.append("creator", video.creator);
-    formData.append("description", video.description);
-    return Service.post(`${resource}/${videoId}/upload`, formData, { headers: authHeader() });
-  }
+  upload(videoId, videoMetadata, file) {
+  const formData = new FormData();
+  formData.append("reelFile", file);
+  formData.append("title", videoMetadata.title);
+  formData.append("creator", videoMetadata.creator);
+  formData.append("description", videoMetadata.description);
+  
+  return Service.post(`${resource}/${videoId}/upload`, formData, { headers: authHeader() });
+}
+
 }
