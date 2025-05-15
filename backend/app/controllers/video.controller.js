@@ -1,4 +1,4 @@
-// const Video = require('../models/video.model');
+const fs = require('fs'); // Importación del módulo fs
 const Video = require('../models').Video;
 const path = require('path');
 const reelConfig = require('../config/reel.config');
