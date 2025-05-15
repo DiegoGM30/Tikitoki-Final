@@ -4,6 +4,10 @@ const path = require('path');
 const reelConfig = require('../config/reel.config');
 const thumbnailConfig = require('../config/thumbnail.config');
 const encoding = require('../media/encoding');
+const express = require('express');
+
+// Sirve la carpeta pública
+app.use('/public', express.static(path.join(__dirname, '../path/to/public')));
 
 // Retrieve all videos
 module.exports.getAll = async (req, res, next) => {
@@ -73,8 +77,11 @@ module.exports.upload = async (req, res, next) => {
         // Convierte el video a MPEG-DASH
         const manifestPath = await encoding.normalize(uploadedFileName, outputFolder);
 
+        // Genera la URL pública del manifiesto
+        const publicManifestPath = `/public/${reelFileName}/manifest.mpd`;
+
         // Actualiza el video con la ruta del manifiesto
-        await video.update({ reel: manifestPath });
+        await video.update({ reel: publicManifestPath });
         res.status(200).json(video);
     } catch (error) {
         return next(error);

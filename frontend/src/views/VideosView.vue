@@ -14,7 +14,10 @@ export default {
     },
     created() {
       videoService.getAll()
-        .then(videos => this.videos = videos.data);
+        .then(videos => {
+          console.log(videos.data); // Verifica que video.reel tenga la URL correcta
+          this.videos = videos.data;
+        });
     },
     data() {
       return {

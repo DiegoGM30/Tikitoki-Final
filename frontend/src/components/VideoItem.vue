@@ -58,7 +58,6 @@ export default {
       const videoUrl = `${baseURL}/${urlSegments.join('/')}`;
       this.player.initialize(videoElement, videoUrl, false);
     },
-
     setupObserver() {
       const options = {
         root: null,
