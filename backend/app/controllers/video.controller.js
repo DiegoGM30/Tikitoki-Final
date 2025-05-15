@@ -6,9 +6,6 @@ const thumbnailConfig = require('../config/thumbnail.config');
 const encoding = require('../media/encoding');
 const express = require('express');
 
-// Sirve la carpeta pública
-app.use('/public', express.static(path.join(__dirname, '../path/to/public')));
-
 // Retrieve all videos
 module.exports.getAll = async (req, res, next) => {
     // We should query the database

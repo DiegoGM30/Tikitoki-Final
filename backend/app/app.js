@@ -1,12 +1,17 @@
-const express = require('express');
 const videos = require('./routes/video.routes');
 const cors = require('cors');
 const bodyParser = require("body-parser");
 const winston = require('winston');
 const expressWinston = require('express-winston');
 const auth = require('./routes/auth.routes');
-
+const express = require('express');
+const path = require('path');
 const app = express();
+
+// Configura la carpeta pública
+app.use('/public', express.static(path.join(__dirname, 'path/to/public')));
+
+// Resto de la configuración de tu servidor...
 
 // Synchronize models with the database
 const db = require("./models");
