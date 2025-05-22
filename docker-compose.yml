@@ -23,9 +23,9 @@ services:
       - MYSQL_USER=user
       - MYSQL_PASSWORD=user-password
       - MYSQL_ROOT_PASSWORD=root-password
-    expose:
-      - "3306"
-      - "33060"
+    ports:
+      - "3306:3306"
+      - "33060:33060"
     volumes:
       - ./volumes/data:/var/lib/mysql
     networks:
@@ -53,15 +53,19 @@ services:
       - ./volumes/uploads:/uploads
       - ./volumes/public/thumbnails:/thumbnails
       - ./volumes/public/reels:/reels
+      - ./volumes/users:/usr/src/service/volumes/users    # ← monta aquí tu carpeta users
+      - ./backend:/usr/src/service
+      - /usr/src/service/node_modules
 
   frontend:
-    build: ./frontend/
+    build: ./newfrontend/
     image: videos-frontend-service
     container_name: videos-frontend-service
     ports:
       - "80:80"
     depends_on:
       - backend
+    
 
 networks:
   videos_backend:

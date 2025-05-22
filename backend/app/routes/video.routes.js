@@ -1,28 +1,19 @@
 const express = require('express');
 const router = express.Router();
-const controller = require("../controllers/video.controller.js");
-const validator = require('../middlewares/validators/video.validator');
-const fileUpload = require('express-fileupload');
+const auth = require('../middlewares/auth');
+const videoValidator = require('../middlewares/validators/video.validator');
+const videoController = require('../controllers/video.controller');
 
-// Parse requests of content-type: multipart/form-data
-router.use(fileUpload({ createParentPath: true }))
+router.post(
+  '/',
+  auth,
+  videoValidator.validateVideo,
+  videoValidator.validateFile,
+  videoController.createWithFile
+);
 
-// Get all videos
-router.get('/', controller.getAll);
-
-// Create a new video
-router.post('/', validator.create, controller.create);
-
-// Get the latest video
-router.get('/latest', controller.getLatest);
-
-// Get a single video
-router.get('/:id', controller.get);
-
-// Upload a video
-router.post('/:id/upload', validator.upload, controller.upload)
-
-// Upload a video thumbnail
-router.post('/:id/uploadthumbnail', validator.uploadthumbnail, controller.uploadthumbnail)
+router.get('/', videoController.getAll);
+router.get('/latest', videoController.getLatest);
+router.get('/:id', videoController.get);
 
 module.exports = router;

@@ -4,5 +4,5 @@ const app = require('./app/app');
 const port = process.env.PORT || 3000;
 
 app.listen(port, () => {
-  console.log(`Service listening at port ${port}`);
+  console.log(`[vB.2] Service listening at port ${port}`);
 });

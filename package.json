@@ -1,0 +1,13 @@
+{
+  "devDependencies": {
+    "autoprefixer": "^10.4.21",
+    "postcss": "^8.5.3",
+    "tailwindcss": "^4.1.7"
+  },
+  "dependencies": {
+    "dashjs": "^5.0.2",
+    "video.js": "^8.22.0",
+    "videojs-contrib-dash": "^5.1.1",
+    "vue-router": "^4.5.1"
+  }
+}
